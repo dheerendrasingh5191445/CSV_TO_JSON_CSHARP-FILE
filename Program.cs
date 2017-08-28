@@ -22,7 +22,7 @@ namespace FirstApp
     {
         static void Main(string[] args)
         {
-            int s = 0;
+            int s = 0;StreamWriter sw=null, sw1=null, sw2=null;StreamReader sr=null;
             int[] NrPY = new int[16];// no. of robbery per year array of 16 year
             int[] NbPY = new int[16];// no. of burglary per year array of 16 year
             int[] Property = new int[16];//array that store the no. of criminal damage to property in respective year
@@ -32,12 +32,11 @@ namespace FirstApp
             Object[] barchartobject = new Object[16];//array that store the Object of barchart that is to changed into json
             Object[] differentvaluemultichart = new Object[16];//array that store the Object of multi chart that is to changed into json
             Dictionary<String, int> PieChartdata = new Dictionary<String, int>();//Dictionary that store the robbery category wise data in string and value
-            StreamReader sr = new StreamReader(new FileStream("C:/Users/Training/Downloads/crimedata.csv", FileMode.OpenOrCreate));//open stream reader to read the file crimedata.csv
-            StreamWriter sw = new StreamWriter(new FileStream("D:/d3/multilinechart.json", FileMode.OpenOrCreate));//open stream writer to write the json of multiline chart
-            StreamWriter sw1 = new StreamWriter(new FileStream("D:/d3/stackedbarchart.json", FileMode.OpenOrCreate));//open stream writer to write the json of stacked bar chart chart
-            StreamWriter sw2 = new StreamWriter(new FileStream("D:/d3/piechart.json", FileMode.OpenOrCreate));//open stream writer to write the json of piechart chart
-            try
-            {
+            try{
+                sr = new StreamReader(new FileStream("C:/Users/Training/Downloads/crimedata.csv", FileMode.OpenOrCreate));//open stream reader to read the file crimedata.csv
+                sw = new StreamWriter(new FileStream("../multilinechart.json", FileMode.OpenOrCreate));//open stream writer to write the json of multiline chart
+                sw1 = new StreamWriter(new FileStream("../stackedbarchart.json", FileMode.OpenOrCreate));//open stream writer to write the json of stacked bar chart chart
+                sw2 = new StreamWriter(new FileStream("../piechart.json", FileMode.OpenOrCreate));//open stream writer to write the json of piechart chart
                 while (!sr.EndOfStream)
                 {
                     string reader = sr.ReadLine();
@@ -97,6 +96,13 @@ namespace FirstApp
                 Console.WriteLine("check the loops and typo error if not fixed then contact me : dhiru");
                 Console.WriteLine(e.Message);
             }
+            finally{
+                 sw.Dispose();
+                sw1.Dispose();
+                sw2.Dispose();
+                sr.Dispose();
+            }
+                           
         }
     }
 }
